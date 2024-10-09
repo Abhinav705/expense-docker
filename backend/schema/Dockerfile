@@ -1,3 +1,4 @@
+#for light weight images we are using alphine
 FROM node:20.15.0-alpine3.20
 EXPOSE 8080
 ENV DB_HOST=mysql
@@ -11,6 +12,6 @@ WORKDIR /opt/server
 COPY package.json .
 COPY *.js /opt/server/
 RUN npm install
+#By default, docker runs on root user.. so making all the changes and switching it to the user expense while executing index.js file
 USER expense
-EXPOSE 8081
 CMD [ "node","index.js" ]

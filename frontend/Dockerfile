@@ -1,7 +1,9 @@
 FROM nginx
+#removing all the default nginx files
 RUN rm -rf /usr/share/nginx/html/index.html
 RUN rm -rf /etc/nginx/nginx.conf
 RUN rm -rf /etc/nginx/conf.d/default.conf
+#creating nginx dir and giving access to user nginx to the directories
 RUN mkdir -p /var/cache/nginx/client_temp && \
         mkdir -p /var/cache/nginx/proxy_temp && \
         mkdir -p /var/cache/nginx/fastcgi_temp && \
@@ -15,4 +17,5 @@ RUN touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid /run/nginx.pid
 COPY expense.conf /etc/nginx/nginx.conf
 COPY code /usr/share/nginx/html/
+#switching to the user nginx after all the configurations made
 USER nginx
